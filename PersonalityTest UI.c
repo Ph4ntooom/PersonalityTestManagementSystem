@@ -107,20 +107,11 @@ void hideTypeCursor() {
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void setFullScreen() {
-    HWND consoleWindow = GetConsoleWindow();
-    ShowWindow(consoleWindow, SW_MAXIMIZE);
-}
-
 void simulateF11Keypress() {
     keybd_event(VK_F11, 0, 0, 0); // Press F11
     keybd_event(VK_F11, 0, KEYEVENTF_KEYUP, 0); // Release F11
 }
 
-void simulateEnterKeypress() {
-    keybd_event(VK_RETURN, 0, 0, 0); // Press F11
-    keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0); // Release F11
-}
 
 void hideScrollBar() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -947,7 +938,6 @@ void mainMenu(){
 }
 
 int main() {
-	setFullScreen();
 	
 	simulateF11Keypress();
 	
