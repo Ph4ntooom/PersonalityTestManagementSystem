@@ -4,20 +4,22 @@ This project is Under Development!
 ```
 ### Description  
 The Secure Personality Test and Score Management System is a console-based application written in **C**. This program allows users to:  
-- Log in securely using encrypted passwords (with input hidden as `*`).  
+- Log in securely using encrypted passwords and unique usernames (with input hidden as `*`).  
 - Take personality quizzes to evaluate their traits.
 - Save and retrieve test scores across sessions.
 - Suggest jobs to the user according to their traits.
 
 The project is available in two versions:  
 1. **With UI**: Includes a user-friendly menu and guided navigation.  
-2. **Without UI**: Simplified version for quick functionality testing.  
+2. **Without UI (DISCONTINUED)** : Simplified version for quick functionality testing.  
 
 ---
 
 ### Features  
 - **User Authentication**:  
   Users can create accounts and log in securely.  
+- **Username Validation**:  
+  Username acts as a unique identifier for each user to avoid overwriting.  
 - **Password Encryption**:  
   Protects user credentials using encryption techniques.  
 - **Password Masking**:  
@@ -26,6 +28,8 @@ The project is available in two versions:
   Interactive tests to evaluate personality traits.  
 - **Score Management**:  
   Saves and retrieves user scores for future logins.  
+- **Job Suggestions**:  
+  Suggests jobs according to the user's traits.  
 
 ---
 
@@ -48,7 +52,7 @@ To run this program, ensure you have:
      ```bash
      gcc -o PersonalityTest_UI "PersonalityTest UI.c" -lm
      ```
-    For the version **without UI**:
+    For the version **without UI (DISCONTINUED)**:
      ```bash
      gcc -o PersonalityTest PersonalityTest.c -lm
      ```
@@ -58,7 +62,7 @@ To run this program, ensure you have:
      ```bash
      ./PersonalityTest_UI
      ```
-    For the version **without UI**:
+    For the version **without UI (DISCONTINUED)**:
      ```bash
      ./PersonalityTest
      ```
@@ -75,7 +79,7 @@ To run this program, ensure you have:
 
 ### File Structure  
 - **`PersonalityTest UI.c`** - The program with a menu-based user interface.
-- **`PersonalityTest.c`** - A streamlined version without a user interface.
+- **`PersonalityTest.c`** - A streamlined version without a user interface. **(DISCONTINUED)**
 - **`users.csv`** - File to securely store user data and scores.
 
 ---
