@@ -31,23 +31,79 @@ struct Portal users[USERS]; // ARRAY TO BE USED FOR STORING EVERYTHING BACK AND 
 int userCount = 0;
 int loggedInUserIndex = -1;
 
-
-// SAMPLE QUESTIONS AND ANSWERS
-const char *questions[QUESTIONS]={
-    "Is FAST University Good for CS? (Yes)",
-    "What is 5 + 7? (12)",
-    "Who teaches you PF? (Dr.FarrukhShahid)",
-    "How many hours does a lab unit last? (3)",
-    "Full form of \"WTF\"? (WelcomeToFAST)"
+struct Core{
+	
+	int extraversion,introversion,sensing,intuition,thinking,feeling,judging,perceiving;
 };
+struct Core c={0};
 
-const char *answers[QUESTIONS]={
-    "Yes",
-    "12",
-    "Dr.FarrukhShahid",
-    "3",
-    "WelcomeToFAST"
-};
+char *questions[51]={
+    "You regularly make new friends?",
+    "You feel comfortable just walking up to someone you find interesting and striking up a conversation?",
+    "You usually prefer to be around others rather than on your own?",
+    "You enjoy participating in team-based activities?",
+    "You can easily connect with people you have just met?",
+    "Your friends would describe you as lively and outgoing?",
+    "You feel more drawn to busy, bustling atmospheres than to quiet, intimate places?",
+    
+
+    "You find the idea of networking or promoting yourself to strangers very daunting?",
+    "You rarely worry about whether you make a good impression on people you meet?",
+    "You enjoy solitary hobbies or activities more than group ones?",
+    "You usually wait for others to introduce themselves first at social gatherings?",
+    "You avoid making phone calls?",
+    
+
+    "You enjoy exploring unfamiliar ideas and viewpoints?",
+    "You are drawn to various forms of creative expression, such as writing?",
+    "Complex and novel ideas excite you more than simple and straightforward ones?",
+    "You enjoy experimenting with new and untested approaches?",
+    "You prefer tasks that require you to come up with creative solutions rather than follow concrete steps?",
+    "You actively seek out new experiences and knowledge areas to explore?",
+    
+    
+    "You are not too interested in discussions about various interpretations of creative works?",
+    "You become bored or lose interest when the discussion gets highly theoretical?",
+    "You like to use organizing tools like schedules and lists?",
+    "You struggle with deadlines?",
+    "You are not too interested in discussing theories on what the world could look like in the future?",
+    
+    
+    "When facts and feelings conflict, you usually find yourself following your heart?",
+    "You often feel overwhelmed?",
+    "Your mood can change very quickly?",
+    "You prioritize facts over peoples feelings when determining a course of action?",
+    "Peoples stories and emotions speak louder to you than numbers or data?",
+    "Your emotions control you more than you control them?",
+    "You prioritize proving your point over preserving the feelings of others?",
+    "When making decisions, you focus more on how the affected people might feel than on what is most logical or efficient?",
+    "In disagreements, you prioritize being sensitive over being completely honest?",
+    "You rarely second-guess the choices that you have made?",
+    "Your living and working spaces are clean and organized?",
+    
+    
+    "You are still bothered by mistakes that you made a long time ago?",
+    "You usually base your choices on objective facts rather than emotional impressions?",
+    "You are not easily swayed by emotional arguments?",
+    "You favor efficiency in decisions, even if it means disregarding some emotional aspects?",
+    "You enjoy debating ethical dilemmas?",
+    "If a decision feels right to you, you often act on it without needing further proof?",
+    "When someone thinks highly of you, you wonder how long it will take them to feel disappointed in you?",
+    
+    
+    "You prioritize and plan tasks effectively, often completing them well before the deadline?",
+    "You are prone to worrying that things will take a turn for the worse?",
+    "You prefer to do your chores before allowing yourself to relax?",
+    "You like to have a to-do list for each day?",
+    "Your personal work style is closer to spontaneous bursts of energy than organized and consistent efforts?",
+    "You complete things methodically without skipping over any steps?",
+    
+    
+    "You struggle with deadlines?",
+    "You rarely feel insecure?",
+    "You find it challenging to maintain a consistent work or study schedule?",
+    "If your plans are interrupted, your top priority is to get back on track as soon as possible?"
+    };
 
 //Pretty Printing Functions start
 void hideTypeCursor() {
@@ -113,7 +169,8 @@ void setConsoleFontSize(int fontSize) {
 
 // FUNCTION FOR ENCRYPTING AND DECRYPTING THE PASSWORD
 void crypt(char *password){
-    for(int i=0; i<strlen(password); i++){
+	int i;
+    for(i=0; i<strlen(password); i++){
         password[i] ^= CRYPT_KEY;
     }
 }
@@ -166,8 +223,8 @@ void saveUsersToCSV(){
         printf("Error opening file for writing.\n");
         return;
     }
-	
-    for(int i=0; i<userCount; i++){
+	int i;
+    for( i=0; i<userCount; i++){
         fprintf(file, "%s,%s,%d\n",
                 users[i].username,
                 users[i].password,
@@ -211,9 +268,10 @@ int loginUser(){
     getPassword(password);
     
     crypt(password);
-    
-    for(int i=0; i<userCount; i++){
+    int i;
+    for(i=0; i<userCount; i++){
         if(strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0){
+        	system("cls");
             printf("Login successful!\n");
             loggedInUserIndex = i;
             return 1;
@@ -224,30 +282,202 @@ int loginUser(){
 	mainMenu();
 }
 
+void askQue(int n,struct Core *c)
+{
+    int points, choice = 3, score = 3, space = (137 - strlen(questions[n])) / 2 , i;
+    system("cls");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    for (i = 0; i < space ; i++){
+    	printf(" ");
+	}
+    printf("%d. %s\n",n+1,questions[n]);
+    printf("\n                                     ");
+    printf("Strongly Agree   Agree   Nuetral   Disagree   Strongly Disagree\n");
+    printf("                                                                 ^");
+    while (choice != '\r') {
+		choice = getch();
+    	if (choice == 224){
+        	choice = getch();
+        	if (choice == 75 && score > 1){ //to move left
+        		switch (score){
+        			case 2:
+        				printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b");
+        				break;
+	        		case 3:
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b");
+	        			break;
+	        		case 4:
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b");
+	        			break;
+	        		case 5:
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	        			break;
+					}
+	        	printf("^");
+	        	score--;
+			}
+			else if (choice == 77 && score < 5){ //to move right
+				switch (score){
+	        		case 1:
+	        			printf("\b \b            ");
+	        			break;
+	        		case 2:
+	        			printf("\b \b         ");
+	        			break;
+	        		case 3:
+	        			printf("\b \b          ");
+	        			break;
+	        		case 4:
+	        			printf("\b \b               ");
+	        			break;
+				}
+				printf("^");
+				score++;
+			}
+		}  
+    }
+    
+    points = score;
+
+    if(points>=4)
+    {
+        if(n<7)
+        c->extraversion++;
+        else if(n<12)
+        c->introversion++;
+        else if (n<18)
+        c->intuition++;
+        else if (n<23)
+        c->sensing++;
+        else if (n<34)
+        c->feeling++;
+        else if (n<41)
+        c->thinking++;
+        else if (n<48)
+        c->judging++;
+        else
+        c->perceiving++;
+    }
+    else if(points<=2)
+    {
+        if(n<7)
+        c->introversion++;
+        else if(n<12)
+        c->extraversion++;
+        else if (n<18)
+        c->sensing++;
+        else if (n<23)
+        c->intuition++;
+        else if (n<34)
+        c->thinking++;
+        else if (n<41)
+        c->feeling++;
+        else if (n<48)
+        c->perceiving++;
+        else
+        c->judging++;
+    }
+    else
+    {
+        if(n<12)
+        {
+            c->extraversion++;
+            c->introversion++;
+        }
+        else if(n<23)
+        {
+            c->sensing++;
+            c->intuition++;
+        }
+        else if(n<41)
+        {
+            c->thinking++;
+            c->feeling++;
+        }
+        else
+        {
+            c->perceiving++;
+            c->judging++;
+        }
+    }
+
+}
+
+void results(){
+	system("cls");
+	printf("\nYour Personality Results:\n");
+    printf("Extraversion: %d, Introversion: %d\n",c.extraversion,c.introversion);
+    printf("Sensing: %d, Intuition: %d\n",c.sensing,c.intuition);
+    printf("Thinking: %d, Feeling: %d\n",c.thinking,c.feeling);
+    printf("Judging: %d, Perceiving: %d\n",c.judging,c.perceiving);
+    printf("\nCareer Suggestions:\n");
+    if(c.extraversion>c.introversion)
+    {
+        printf("the most suiitable career for you would be carrer related to Education and training,Marketing,Politics and Journalism.\n");
+    }
+    else if(c.extraversion<c.introversion)
+    {
+        printf("You may excel in  more solitary research-based careers like Writer, Analyst,Skilled trader or Scientist.\n");
+    }
+    else
+    {
+        printf("You have a balanced preference for both social and isolated environments, so careers like Project Management, Consulting, or Entrepreneurship might suit you.\n");
+    }
+    if(c.sensing>c.intuition)
+    {
+        printf("You might be suited to practical careers such as Engineering, Accounting, or Healthcare.\n");
+    }
+    else if(c.sensing<c.intuition)
+    {
+        printf("You may thrive in creative or theoretical fields like Design, Psychology, or Innovation.\n");
+    }
+    else
+    {
+        printf("You have a balanced approach to both practical and creative tasks, making you well-suited for careers in Research, Urban Planning, or Product Management.\n");
+    }
+    if(c.thinking>c.feeling)
+    {
+        printf("you may consider analytical careers like Law, IT, or Data Analysis.\n");
+    }
+    else if(c.thinking<c.feeling)
+    {
+        printf("you are more likely to enjoy  careers which are focused on empathy, such as Counseling, HR, or Social Work.\n");
+    }
+    else
+    {
+        printf("You have a very strong approach to decision-making, which may make you excel in roles such as Mediator, Consultant, or Executive Leadership.\n");
+    }
+    if(c.judging>c.perceiving)
+    {
+        printf("You will be good at structured careers like Project Management, Business, or Law.\n");
+    }
+    else if(c.judging<c.perceiving)
+    {
+        printf("You may excel in flexible careers like Entrepreneurship, Consulting, or the Arts.\n");
+    }
+    else
+    {
+        printf("You have a flexible and organized approach, making you ideal for roles in Operations, Event Planning, or Freelancing.\n");
+    }
+    getch();
+    userMenu();
+}
+
 // SAMPLE TEST-TAKING FUNCTION
 void takeQuiz(){
     if(loggedInUserIndex==-1){
         printf("You must be logged in to take the quiz.\n");
         return;
     }
-
-    int score = 0;
-    char answer[STRING_LENGTH];
-
     printf("\n--- Quiz Time! ---\n");
-    for(int i=0; i<QUESTIONS; i++){
-        printf("Q%d: %s\n", i + 1, questions[i]);
-        printf("Your answer: ");
-        scanf("%s", answer);
-        
-        if(strcmp(answer, answers[i]) == 0){
-            score++;
-        }
+    int i;
+    for( i=0; i < 51 ; i++ ){
+        askQue(i,&c);
     }
-
-    printf("You scored %d out of %d!\n", score, QUESTIONS);
-
-    users[loggedInUserIndex].quizScore = score;
+	
+	results();
+	
+    //[loggedInUserIndex].quizScore = score;
     saveUsersToCSV();
 }
 
@@ -271,8 +501,40 @@ void userMenu(){
     printf("--- Main Menu ---\n\n\n");
     printf("\n\n\n\n\n\n\n\n\n");
     printf("\n                                                      ");
-    printf("Play     Your Results     Exit\n");
+    printf("Play     Your Results     Sign out\n");
 	printf("                                                                     ^");
+	while (choice != '\r') {
+		choice = getch();
+    	if (choice == 224){
+        	choice = getch();
+        	if (choice == 75 && score > 0){ //to move left
+        		switch (score){
+        			case 1:
+        				printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+        				break;
+	        		case 2:
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	        			break;
+					}
+	        	printf("^");
+	        	score--;
+			}
+			else if (choice == 77 && score < 2){ //to move right
+				switch (score){
+	        		case 0:
+	        			printf("\b \b              ");
+	        			break;
+	        		case 1:
+	        			printf("\b \b              ");
+	        			break;
+				}
+				printf("^");
+				score++;
+			}
+		}  
+    }
+	choice = score;
+	system("cls");
 
     switch(choice){
         case 0:
@@ -282,7 +544,8 @@ void userMenu(){
             viewUserInfo();
             break;
         case 2:
-            printf("Logging out...\n");
+            system("cls");
+            mainMenu();
             loggedInUserIndex = -1;
             break;
         }
@@ -291,7 +554,7 @@ void userMenu(){
 void mainMenu(){
 	int choice, score = 1;
     printf("\n                                                            ");
-    printf("--- Main Menu ---\n\n\n");
+    printf("    Main Menu    \n\n\n");
     printf("\n\n\n\n\n\n\n\n\n");
     printf("\n                                                      ");
     printf("Register     Login     Exit\n");
