@@ -392,62 +392,62 @@ void askQue(int n){
     if(points>=4)
     {
         if(n<7)
-        	users[loggedInUserIndex].extraversion = points;
+        	users[loggedInUserIndex].extraversion++;
         else if(n<12)
-        	users[loggedInUserIndex].introversion = points;
+        	users[loggedInUserIndex].introversion++;
         else if (n<18)
-        	users[loggedInUserIndex].intuition = points;
+        	users[loggedInUserIndex].intuition++;
         else if (n<23)
-        	users[loggedInUserIndex].sensing = points;
+        	users[loggedInUserIndex].sensing++;
         else if (n<34)
-        	users[loggedInUserIndex].feeling = points;
+        	users[loggedInUserIndex].feeling++;
         else if (n<41)
-        	users[loggedInUserIndex].thinking = points;
+        	users[loggedInUserIndex].thinking++;
         else if (n<48)
-        	users[loggedInUserIndex].judging = points;
+        	users[loggedInUserIndex].judging++;
         else
-        	users[loggedInUserIndex].perceiving = points;
+        	users[loggedInUserIndex].perceiving++;
     }
     else if(points<=2)
     {
         if(n<7)
-        users[loggedInUserIndex].introversion = points;
+        users[loggedInUserIndex].introversion++;
         else if(n<12)
-        users[loggedInUserIndex].extraversion = points;
+        users[loggedInUserIndex].extraversion++;
         else if (n<18)
-        users[loggedInUserIndex].sensing = points;
+        users[loggedInUserIndex].sensing++;
         else if (n<23)
-        users[loggedInUserIndex].intuition = points;
+        users[loggedInUserIndex].intuition++;
         else if (n<34)
-        users[loggedInUserIndex].thinking = points;
+        users[loggedInUserIndex].thinking++;
         else if (n<41)
-        users[loggedInUserIndex].feeling = points;
+        users[loggedInUserIndex].feeling++;
         else if (n<48)
-        users[loggedInUserIndex].perceiving = points;
+        users[loggedInUserIndex].perceiving++;
         else
-        users[loggedInUserIndex].judging = points;
+        users[loggedInUserIndex].judging++;
     }
     else
     {
         if(n<12)
         {
-            users[loggedInUserIndex].extraversion = points;
-            users[loggedInUserIndex].introversion = points;
+            users[loggedInUserIndex].extraversion++;
+            users[loggedInUserIndex].introversion++;
         }
         else if(n<23)
         {
-            users[loggedInUserIndex].sensing = points;
-            users[loggedInUserIndex].intuition = points;
+            users[loggedInUserIndex].sensing++;
+            users[loggedInUserIndex].intuition++;
         }
         else if(n<41)
         {
-            users[loggedInUserIndex].thinking = points;
-            users[loggedInUserIndex].feeling = points;
+            users[loggedInUserIndex].thinking++;
+            users[loggedInUserIndex].feeling++;
         }
         else
         {
-            users[loggedInUserIndex].perceiving = points;
-            users[loggedInUserIndex].judging = points;
+            users[loggedInUserIndex].perceiving++;
+            users[loggedInUserIndex].judging++;
         }
     }
 
