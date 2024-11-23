@@ -342,8 +342,8 @@ void askQue(int n){
 	}
     printf("%d- %s\n",n+1,questions[n]);
     printf("\n                                     ");
-    printf("Strongly Agree   Agree   Nuetral   Disagree   Strongly Disagree\n");
-    printf("                                                                 ^");
+    printf("Strongly Disagree   Disagree   Nuetral   Agree   Strongly Agree\n");
+    printf("                                                                       ^");
     while (choice != '\r') {
 		choice = getch();
     	if (choice == 224){
@@ -351,16 +351,16 @@ void askQue(int n){
         	if (choice == 75 && score > 1){ //to move left
         		switch (score){
         			case 2:
-        				printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b");
+        				printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
         				break;
 	        		case 3:
-	        			printf("\b \b\b\b\b\b\b\b\b\b\b");
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b\b");
 	        			break;
 	        		case 4:
-	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b");
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b");
 	        			break;
 	        		case 5:
-	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+	        			printf("\b \b\b\b\b\b\b\b\b\b\b\b\b\b\b");
 	        			break;
 					}
 	        	printf("^");
@@ -369,16 +369,16 @@ void askQue(int n){
 			else if (choice == 77 && score < 5){ //to move right
 				switch (score){
 	        		case 1:
-	        			printf("\b \b            ");
+	        			printf("\b \b              ");
 	        			break;
 	        		case 2:
-	        			printf("\b \b         ");
+	        			printf("\b \b           ");
 	        			break;
 	        		case 3:
-	        			printf("\b \b          ");
+	        			printf("\b \b         ");
 	        			break;
 	        		case 4:
-	        			printf("\b \b               ");
+	        			printf("\b \b             ");
 	        			break;
 				}
 				printf("^");
