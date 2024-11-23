@@ -97,6 +97,7 @@ char *questions[51]={
     };
 
 //Pretty Printing Functions start
+
 void hideTypeCursor() {
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -154,6 +155,24 @@ void setConsoleFontSize(int fontSize) {
     // Set the new font
     SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
+
+void goodbye(){
+	setConsoleFontSize(80);
+	printf("                     GoodBye\n");
+	printf("                   .''.    .'',\n");
+	printf("                   |  |   /  /\n");
+	printf("                   |  |  /  /\n");
+	printf("                   |  | /  /\n");
+	printf("                   |  |/  ;-._\n");
+	printf("                   }  ` _/  / ;\n");
+	printf("                   |  /` ) /  /\n");
+	printf("                   | /  /_/\\_/\\ \n");
+	printf("                   |/  /      |\n");
+	printf("                   (  ' \\ '-  |\n");
+	printf("                    \\    `.  /\n");
+	printf("                     |      |\n");
+	printf("                     |      |\n");
+}
 // Pretty Printing Function Ends
 
 
@@ -168,7 +187,8 @@ void crypt(char *password){
 
 // VALIDATING USERNAME TO BE UNIQUE
 int validateUsername(char *username){
-	for(int i=0; i<userCount; i++){
+	int i;
+	for(i=0; i<userCount; i++){
 		if(strcmp(username, users[i].username)==0){
 			return 1;
 		}
@@ -230,7 +250,8 @@ void saveUsersToCSV(){
         printf("Error opening file for writing.\n");
         return;
     }
-    for(int i=0; i<userCount; i++){
+    int i;
+    for(i=0; i<userCount; i++){
         fprintf(file, "%s,%s,%d,%d,%d,%d,%d,%d,%d,%d\n",
                 users[i].username,
                 users[i].password,
@@ -246,6 +267,7 @@ void saveUsersToCSV(){
     fclose(file);
     printf("%s*\n", CSV_FILE);
 }
+
 
 // ACCOUNT REGISTRATION FUNCTION
 void registerUser(){
@@ -297,7 +319,8 @@ int loginUser(){
     getPassword(password);
     
     crypt(password);
-    for(int i=0; i<userCount; i++){
+    int i;
+    for(i=0; i<userCount; i++){
         if(strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0){
         	system("cls");
             printf("Login successful!\n");
@@ -369,123 +392,393 @@ void askQue(int n){
     if(points>=4)
     {
         if(n<7)
-        	users[loggedInUserIndex].extraversion++;
+        	users[loggedInUserIndex].extraversion = points;
         else if(n<12)
-        	users[loggedInUserIndex].introversion++;
+        	users[loggedInUserIndex].introversion = points;
         else if (n<18)
-        	users[loggedInUserIndex].intuition++;
+        	users[loggedInUserIndex].intuition = points;
         else if (n<23)
-        	users[loggedInUserIndex].sensing++;
+        	users[loggedInUserIndex].sensing = points;
         else if (n<34)
-        	users[loggedInUserIndex].feeling++;
+        	users[loggedInUserIndex].feeling = points;
         else if (n<41)
-        	users[loggedInUserIndex].thinking++;
+        	users[loggedInUserIndex].thinking = points;
         else if (n<48)
-        	users[loggedInUserIndex].judging++;
+        	users[loggedInUserIndex].judging = points;
         else
-        	users[loggedInUserIndex].perceiving++;
+        	users[loggedInUserIndex].perceiving = points;
     }
     else if(points<=2)
     {
         if(n<7)
-        users[loggedInUserIndex].introversion++;
+        users[loggedInUserIndex].introversion = points;
         else if(n<12)
-        users[loggedInUserIndex].extraversion++;
+        users[loggedInUserIndex].extraversion = points;
         else if (n<18)
-        users[loggedInUserIndex].sensing++;
+        users[loggedInUserIndex].sensing = points;
         else if (n<23)
-        users[loggedInUserIndex].intuition++;
+        users[loggedInUserIndex].intuition = points;
         else if (n<34)
-        users[loggedInUserIndex].thinking++;
+        users[loggedInUserIndex].thinking = points;
         else if (n<41)
-        users[loggedInUserIndex].feeling++;
+        users[loggedInUserIndex].feeling = points;
         else if (n<48)
-        users[loggedInUserIndex].perceiving++;
+        users[loggedInUserIndex].perceiving = points;
         else
-        users[loggedInUserIndex].judging++;
+        users[loggedInUserIndex].judging = points;
     }
     else
     {
         if(n<12)
         {
-            users[loggedInUserIndex].extraversion++;
-            users[loggedInUserIndex].introversion++;
+            users[loggedInUserIndex].extraversion = points;
+            users[loggedInUserIndex].introversion = points;
         }
         else if(n<23)
         {
-            users[loggedInUserIndex].sensing++;
-            users[loggedInUserIndex].intuition++;
+            users[loggedInUserIndex].sensing = points;
+            users[loggedInUserIndex].intuition = points;
         }
         else if(n<41)
         {
-            users[loggedInUserIndex].thinking++;
-            users[loggedInUserIndex].feeling++;
+            users[loggedInUserIndex].thinking = points;
+            users[loggedInUserIndex].feeling = points;
         }
         else
         {
-            users[loggedInUserIndex].perceiving++;
-            users[loggedInUserIndex].judging++;
+            users[loggedInUserIndex].perceiving = points;
+            users[loggedInUserIndex].judging = points;
         }
     }
 
 }
 
+void introvert(){
+	printf("\n\n");
+	printf("As an introvert, you are likely well-suited to many situations.");
+	printf("Your tendency to be reserved helps you pace yourself effectively. You\n");
+	printf("likely listen to others more carefully than most people.");
+	printf("Being introspective, you enjoy focused 'alone time' for insights. You may be\n");
+	printf("You may be sensitive to your environment, picking up cues quickly.");
+	printf("This ability makes you great at reading many different situations.\n");
+}
+
+void extrovert(){
+	printf("\n\n");
+	printf("As an extrovert, you are naturally drawn to engaging with others.");
+	printf("You thrive on the responses of people and events around you.\n");
+	printf("You enjoy pushing limits and discovering what the world can do.");
+	printf("While life has its limits, you lean toward taking the initiative.\n");
+	printf("You often rely on the world around you for energy and validation.\n");
+}
+
+void intuitive(){
+	printf("\n\n");
+	printf("As someone with the Intuitive trait, you prefer to use your imagination.");
+	printf("You seek new ideas and possibilities in your daily life.\n");
+	printf("Your mind tends to point inward while focusing beyond the horizon.");
+	printf("You likely live a life of questioning, wondering, and connecting \n");
+	printf("dots. You may love the theoretical and think about the 'bigger picture.'");
+	printf("You often ask, 'What if?' and ponder future possibilities.\n");
+}
+
+void sensing(){
+	printf("\n\n");
+	printf("As a Sensing individual, you're most in touch with the present.");
+	printf("You focus on what occurs in front of you right now. This doesn't mean\n");
+	printf("you disregard the past or future entirely.");
+	printf("You view both from the perspective of how they influence your actions. This makes you a\n");
+	printf("focused and practical person.");
+	printf("You root your thinking in the actionable, tangible, and useful. But make no mistake, you can be creative\n");
+	printf("within that realm.\n");
+}
+
+void thinking(){
+	printf("\n\n");
+	printf("As someone with the Thinking trait, you lean on objective information.");
+	printf("Knowledge is your indispensable tool when making decisions. Once \n");
+	printf("you gather the facts, you test alternatives against logic and reason.");
+	printf("You seek the most effective or realistic decision based on those \n");
+	printf("standards. You manage your relationships with fairness and effectiveness.");
+	printf("Your passions are born from respect for others.\n");
+}
+
+void feeling(){
+	printf("\n\n");
+	printf("As someone with the Feeling trait, you often follow your heart and emotions.");
+	printf("Sometimes, you may do this without even realizing it.\n");
+	printf("You may show it in different ways, but you tend to be caring and warm.");
+	printf("You're compassionate and often protective of those you care about.\n");
+	printf("Whether it's your family or people in need, you're deeply concerned.\n");
+}
+
+void judging(){
+	printf("\n\n");
+	printf("As someone with the Judging trait, you feel most comfortable when the path is clear.");
+	printf("You'd rather have five backup plans than deal with \n");
+	printf("events as they come. You prefer to consider your options ahead of time for clarity and closure.");
+	printf("You tend to stick with the plan rather \n");
+	printf("than go with the flow. It's as if you always keep a mental checklist of tasks to complete.");
+	printf("When you cross something off or start an item,\nyou consider it done.\n");
+}
+
+void perceiving(){
+	printf("\n\n");
+	printf("As someone with the Perceiving trait, you're flexible in dealing with challenges.");
+	printf("This flexibility helps you seize unexpected \n");
+	printf("opportunities. You tend to react to your environment rather than try to control it.");
+	printf("This helps you make your own luck with whatever the\n");
+	printf("world delivers. You believe life is full of possibilities.\n");
+
+}
+
 void results(){
 	system("cls");
-	printf("\nYour Personality Results:\n");
-    printf("Extraversion: %d, Introversion: %d\n",users[loggedInUserIndex].extraversion,users[loggedInUserIndex].introversion);
-    printf("Sensing: %d, Intuition: %d\n",users[loggedInUserIndex].sensing,users[loggedInUserIndex].intuition);
-    printf("Thinking: %d, Feeling: %d\n",users[loggedInUserIndex].thinking,users[loggedInUserIndex].feeling);
-    printf("Judging: %d, Perceiving: %d\n",users[loggedInUserIndex].judging,users[loggedInUserIndex].perceiving);
-    printf("\nCareer Suggestions:\n");
-    if(users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion)
-    {
-        printf("the most suiitable career for you would be carrer related to Education and training,Marketing,Politics and Journalism.\n");
-    }
-    else if(users[loggedInUserIndex].extraversion < users[loggedInUserIndex].introversion)
-    {
-        printf("You may excel in  more solitary research-based careers like Writer, Analyst,Skilled trader or Scientist.\n");
-    }
-    else
-    {
-        printf("You have a balanced preference for both social and isolated environments, so careers like Project Management, Consulting, or Entrepreneurship might suit you.\n");
-    }
-    if(users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition)
-    {
-        printf("You might be suited to practical careers such as Engineering, Accounting, or Healthcare.\n");
-    }
-    else if(users[loggedInUserIndex].sensing < users[loggedInUserIndex].intuition)
-    {
-        printf("You may thrive in creative or theoretical fields like Design, Psychology, or Innovation.\n");
-    }
-    else
-    {
-        printf("You have a balanced approach to both practical and creative tasks, making you well-suited for careers in Research, Urban Planning, or Product Management.\n");
-    }
-    if(users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling)
-    {
-        printf("you may consider analytical careers like Law, IT, or Data Analysis.\n");
-    }
-    else if(users[loggedInUserIndex].thinking < users[loggedInUserIndex].feeling)
-    {
-        printf("you are more likely to enjoy  careers which are focused on empathy, such as Counseling, HR, or Social Work.\n");
-    }
-    else
-    {
-        printf("You have a very strong approach to decision-making, which may make you excel in roles such as Mediator, Consultant, or Executive Leadership.\n");
-    }
-    if(users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving)
-    {
-        printf("You will be good at structured careers like Project Management, Business, or Law.\n");
-    }
-    else if(users[loggedInUserIndex].judging < users[loggedInUserIndex].perceiving)
-    {
-        printf("You may excel in flexible careers like Entrepreneurship, Consulting, or the Arts.\n");
-    }
-    else
-    {
-        printf("You have a flexible and organized approach, making you ideal for roles in Operations, Event Planning, or Freelancing.\n");
-    }
+	int i;
+	float percentage, till;
+	printf("\n                                                    ");
+	printf("Your Personality Results\n\n");
+	// Introversion & Extroversion
+	if (users[loggedInUserIndex].introversion == users[loggedInUserIndex].extraversion){
+		users[loggedInUserIndex].introversion += 5;
+	}
+	printf("\n                                           ");
+	percentage = ((float)users[loggedInUserIndex].introversion/(users[loggedInUserIndex].extraversion+users[loggedInUserIndex].introversion))*100;
+
+    printf("Introversion %.f ",percentage);
+    till = percentage / 10;
+    for (i = 0; i < till ; i++){
+    	printf("%c",178);
+	}
+	for (i = 0; i < 10 - till ; i++){
+    	printf("%c",176);
+	}
+	printf(" %.f Extraversion\n",100 - percentage);
+	// Sensing & Intuition
+	if (users[loggedInUserIndex].sensing == users[loggedInUserIndex].intuition){
+		users[loggedInUserIndex].sensing += 5;
+	}
+	printf("\n                                                ");
+	percentage = ((float)users[loggedInUserIndex].sensing/(users[loggedInUserIndex].sensing+users[loggedInUserIndex].intuition))*100;
+    printf("Sensing %.f ",percentage);
+    till = percentage / 10;
+    for (i = 0; i < till ; i++){
+    	printf("%c",178);
+	}
+	for (i = 0; i < 10 - till ; i++){
+    	printf("%c",176);
+	}
+	printf(" %.f Intuitive\n",100 - percentage);
+	// Thinking & Feeling
+	if (users[loggedInUserIndex].thinking == users[loggedInUserIndex].feeling){
+		users[loggedInUserIndex].thinking += 5;
+	}
+	printf("\n                                               ");
+    percentage = ((float)users[loggedInUserIndex].thinking/(users[loggedInUserIndex].thinking+users[loggedInUserIndex].feeling))*100;
+    printf("Thinking %.f ",percentage);
+    till = percentage / 10;
+    for (i = 0; i < till ; i++){
+    	printf("%c",178);
+	}
+	for (i = 0; i < 10 - till ; i++){
+    	printf("%c",176);
+	}
+	printf(" %.f Feeling\n",100 - percentage);
+	// Judging & Perceiving
+	if (users[loggedInUserIndex].judging == users[loggedInUserIndex].perceiving){
+		users[loggedInUserIndex].judging += 5;
+	}
+	printf("\n                                                ");
+    percentage = ((float)users[loggedInUserIndex].judging/(users[loggedInUserIndex].judging+users[loggedInUserIndex].perceiving))*100;
+    printf("Judging %.f ",percentage);
+    till = percentage / 10;
+    for (i = 0; i < till ; i++){
+    	printf("%c",178);
+	}
+	for (i = 0; i < 10 - till ; i++){
+    	printf("%c",176);
+	}
+	printf(" %.f Perceiving\n",100 - percentage);
+	printf("\n                                                      ");
+	printf("Personlity Type: ");
+	if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	    users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	    users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	    users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // INTJ
+	    	printf("INTJ");
+		    introvert();
+	        intuitive();
+	        thinking();
+	        judging();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // INTP
+	    	printf("INTJ");
+	    	introvert();
+            intuitive();
+            thinking();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // INFJ
+	    	printf("INFJ");
+	    	introvert();
+            intuitive();
+            feeling();
+            judging();
+	    
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // INFP
+	    	printf("INFP");
+	    	introvert();
+            intuitive();
+            feeling();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ISTJ
+	    	printf("ISTJ");
+	    	introvert();
+            sensing();
+            thinking();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ISTP
+	    	printf("ISTP");
+	    	introvert();
+            sensing();
+            thinking();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ISFJ
+	    	printf("ISFJ");
+	     	introvert();
+            sensing();
+            feeling();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].introversion > users[loggedInUserIndex].extraversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ISFP
+	    	printf("ISFP");
+	   		introvert();
+            sensing();
+            feeling();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ENTJ
+	    	printf("ENTJ");
+	    	extrovert();
+            intuitive();
+            thinking();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ENTP
+	    	printf("ENTP");
+	    	extrovert();
+            intuitive();
+            thinking();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ENFJ
+	    	printf("ENFJ");
+	    	extrovert();
+            intuitive();
+            feeling();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].intuition > users[loggedInUserIndex].sensing &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ENFP
+	    	printf("ENFP");
+	    	extrovert();
+            intuitive();
+            feeling();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ESTJ
+	    	printf("ESTJ");
+	    	extrovert();
+            sensing();
+            thinking();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ESTP
+	    	printf("ESTP");
+	    	extrovert();
+            sensing();
+            thinking();
+            perceiving();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving) {
+	    // ESFJ
+	    	printf("ESFJ");
+	    	extrovert();
+            sensing();
+            feeling();
+            judging();
+	} 
+	else if (users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion &&
+	           users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition &&
+	           users[loggedInUserIndex].feeling > users[loggedInUserIndex].thinking &&
+	           users[loggedInUserIndex].perceiving > users[loggedInUserIndex].judging) {
+	    // ESFP
+	    	printf("ESFP");
+	    	extrovert();
+            sensing();
+            feeling();
+            perceiving();
+	}
+
     getch();
     userMenu();
 }
@@ -497,7 +790,8 @@ void takeQuiz(){
         return;
     }
     printf("\n--- Quiz Time! ---\n");
-    for(int i=0; i < 51 ; i++){
+    int i;
+    for(i=0; i < 51 ; i++){
         askQue(i);
     }
 	
@@ -514,20 +808,30 @@ void viewUserInfo(){
     }
 
     struct Portal user = users[loggedInUserIndex];
-    printf("\n--- Account Information ---\n");
-    printf("Username: %s\n", user.username);
     results();
+}
+
+void intialiseScore(){
+	users[loggedInUserIndex].introversion = 0;
+    users[loggedInUserIndex].extraversion = 0;
+    users[loggedInUserIndex].sensing = 0;
+    users[loggedInUserIndex].intuition = 0;
+    users[loggedInUserIndex].thinking = 0;
+    users[loggedInUserIndex].feeling = 0;
+    users[loggedInUserIndex].judging = 0;
+    users[loggedInUserIndex].perceiving = 0;
 }
 
 // OUTPUT TO SHOW AFTER USER HAVE SUCCEESSFULLY LOGGED IN
 void userMenu(){
+	system("cls");
     int choice, score = 1;
-    printf("\n                                                            ");
-    printf("--- Main Menu ---\n\n\n");
+    printf("\n                                                          ");
+    printf("    User Menu    \n\n\n");
     printf("\n\n\n\n\n\n\n\n\n");
-    printf("\n                                                      ");
+    printf("\n                                                   ");
     printf("Play     Your Results     Sign out\n");
-	printf("                                                                     ^");
+	printf("                                                                  ^");
 	while (choice != '\r') {
 		choice = getch();
     	if (choice == 224){
@@ -564,6 +868,7 @@ void userMenu(){
     switch(choice){
         case 0:
             takeQuiz();
+            intialiseScore();
             saveUsersToCSV();
             break;
         case 1:
@@ -579,6 +884,7 @@ void userMenu(){
 }
 
 void mainMenu(){
+	system("cls");
 	int choice, score = 1;
     printf("\n                                                            ");
     printf("    Main Menu    \n\n\n");
@@ -634,9 +940,10 @@ void mainMenu(){
 				}
             case 2:
                 saveUsersToCSV();
+                system("cls");
+                goodbye();
             	exit(0);
         }
-    system("cls");
 }
 
 int main() {
