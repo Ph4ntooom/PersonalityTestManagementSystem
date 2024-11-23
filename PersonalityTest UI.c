@@ -20,22 +20,13 @@ int main();
 struct Portal{
     char username[STRING_LENGTH];
     char password[STRING_LENGTH];
-    float grade;
-    int age;
-    char nationality[STRING_LENGTH];
-    int quizScore;
+	int extraversion, introversion, sensing, intuition, thinking, feeling, judging, perceiving;
 };
 
 
 struct Portal users[USERS]; // ARRAY TO BE USED FOR STORING EVERYTHING BACK AND FORTH FROM THE CSV
 int userCount = 0;
 int loggedInUserIndex = -1;
-
-struct Core{
-	
-	int extraversion,introversion,sensing,intuition,thinking,feeling,judging,perceiving;
-};
-struct Core c={0};
 
 char *questions[51]={
     "You regularly make new friends?",
@@ -163,7 +154,7 @@ void setConsoleFontSize(int fontSize) {
     // Set the new font
     SetCurrentConsoleFontEx(hConsole, FALSE, &cfi);
 }
-//Pretty Printing Function Ends
+// Pretty Printing Function Ends
 
 
 
@@ -206,11 +197,17 @@ void loadUsersFromCSV(){
         printf("No previous data found. Starting fresh.\n");
         return;
     }
-
-    while(fscanf(file, "%49[^,],%49[^,],%d\n",
+    while(fscanf(file, "%49[^,],%49[^,],%d,%d,%d,%d,%d,%d,%d,%d\n",
                   users[userCount].username,
                   users[userCount].password,
-                  &users[userCount].quizScore)==3){
+                  &users[userCount].extraversion,
+                  &users[userCount].introversion,
+                  &users[userCount].sensing,
+                  &users[userCount].intuition,
+                  &users[userCount].thinking,
+                  &users[userCount].feeling,
+                  &users[userCount].judging,
+                  &users[userCount].perceiving)==10){
         userCount++;
     }
     fclose(file);
@@ -223,15 +220,21 @@ void saveUsersToCSV(){
         printf("Error opening file for writing.\n");
         return;
     }
-	int i;
-    for( i=0; i<userCount; i++){
-        fprintf(file, "%s,%s,%d\n",
+    for(int i=0; i<userCount; i++){
+        fprintf(file, "%s,%s,%d,%d,%d,%d,%d,%d,%d,%d\n",
                 users[i].username,
                 users[i].password,
-                users[i].quizScore);
+                users[i].extraversion,
+                users[i].introversion,
+                users[i].sensing,
+                users[i].intuition,
+                users[i].thinking,
+                users[i].feeling,
+                users[i].judging,
+                users[i].perceiving);
     }
     fclose(file);
-    printf("Data saved to %s successfully!\n", CSV_FILE);
+    printf("%s*\n", CSV_FILE);
 }
 
 // ACCOUNT REGISTRATION FUNCTION
@@ -248,7 +251,15 @@ void registerUser(){
     getPassword(newUser.password);
     
     crypt(newUser.password);
-    newUser.quizScore = 0;
+    
+    newUser.extraversion = 0;
+    newUser.introversion = 0;
+    newUser.sensing = 0;
+    newUser.intuition = 0;
+    newUser.thinking = 0;
+    newUser.feeling = 0;
+    newUser.judging = 0;
+    newUser.perceiving = 0;
     
     users[userCount++] = newUser;
     printf("User registered successfully!\n");
@@ -261,15 +272,14 @@ void registerUser(){
 int loginUser(){
     char username[STRING_LENGTH];
     char password[STRING_LENGTH];
-    int j = 0;
+
     printf("Enter Username: ");
     scanf("%s", username);
     printf("Enter Password: ");
     getPassword(password);
     
     crypt(password);
-    int i;
-    for(i=0; i<userCount; i++){
+    for(int i=0; i<userCount; i++){
         if(strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0){
         	system("cls");
             printf("Login successful!\n");
@@ -282,15 +292,14 @@ int loginUser(){
 	mainMenu();
 }
 
-void askQue(int n,struct Core *c)
-{
+void askQue(int n){
     int points, choice = 3, score = 3, space = (137 - strlen(questions[n])) / 2 , i;
     system("cls");
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     for (i = 0; i < space ; i++){
     	printf(" ");
 	}
-    printf("%d. %s\n",n+1,questions[n]);
+    printf("%d- %s\n",n+1,questions[n]);
     printf("\n                                     ");
     printf("Strongly Agree   Agree   Nuetral   Disagree   Strongly Disagree\n");
     printf("                                                                 ^");
@@ -342,62 +351,62 @@ void askQue(int n,struct Core *c)
     if(points>=4)
     {
         if(n<7)
-        c->extraversion++;
+        	users[loggedInUserIndex].extraversion++;
         else if(n<12)
-        c->introversion++;
+        	users[loggedInUserIndex].introversion++;
         else if (n<18)
-        c->intuition++;
+        	users[loggedInUserIndex].intuition++;
         else if (n<23)
-        c->sensing++;
+        	users[loggedInUserIndex].sensing++;
         else if (n<34)
-        c->feeling++;
+        	users[loggedInUserIndex].feeling++;
         else if (n<41)
-        c->thinking++;
+        	users[loggedInUserIndex].thinking++;
         else if (n<48)
-        c->judging++;
+        	users[loggedInUserIndex].judging++;
         else
-        c->perceiving++;
+        	users[loggedInUserIndex].perceiving++;
     }
     else if(points<=2)
     {
         if(n<7)
-        c->introversion++;
+        users[loggedInUserIndex].introversion++;
         else if(n<12)
-        c->extraversion++;
+        users[loggedInUserIndex].extraversion++;
         else if (n<18)
-        c->sensing++;
+        users[loggedInUserIndex].sensing++;
         else if (n<23)
-        c->intuition++;
+        users[loggedInUserIndex].intuition++;
         else if (n<34)
-        c->thinking++;
+        users[loggedInUserIndex].thinking++;
         else if (n<41)
-        c->feeling++;
+        users[loggedInUserIndex].feeling++;
         else if (n<48)
-        c->perceiving++;
+        users[loggedInUserIndex].perceiving++;
         else
-        c->judging++;
+        users[loggedInUserIndex].judging++;
     }
     else
     {
         if(n<12)
         {
-            c->extraversion++;
-            c->introversion++;
+            users[loggedInUserIndex].extraversion++;
+            users[loggedInUserIndex].introversion++;
         }
         else if(n<23)
         {
-            c->sensing++;
-            c->intuition++;
+            users[loggedInUserIndex].sensing++;
+            users[loggedInUserIndex].intuition++;
         }
         else if(n<41)
         {
-            c->thinking++;
-            c->feeling++;
+            users[loggedInUserIndex].thinking++;
+            users[loggedInUserIndex].feeling++;
         }
         else
         {
-            c->perceiving++;
-            c->judging++;
+            users[loggedInUserIndex].perceiving++;
+            users[loggedInUserIndex].judging++;
         }
     }
 
@@ -406,16 +415,16 @@ void askQue(int n,struct Core *c)
 void results(){
 	system("cls");
 	printf("\nYour Personality Results:\n");
-    printf("Extraversion: %d, Introversion: %d\n",c.extraversion,c.introversion);
-    printf("Sensing: %d, Intuition: %d\n",c.sensing,c.intuition);
-    printf("Thinking: %d, Feeling: %d\n",c.thinking,c.feeling);
-    printf("Judging: %d, Perceiving: %d\n",c.judging,c.perceiving);
+    printf("Extraversion: %d, Introversion: %d\n",users[loggedInUserIndex].extraversion,users[loggedInUserIndex].introversion);
+    printf("Sensing: %d, Intuition: %d\n",users[loggedInUserIndex].sensing,users[loggedInUserIndex].intuition);
+    printf("Thinking: %d, Feeling: %d\n",users[loggedInUserIndex].thinking,users[loggedInUserIndex].feeling);
+    printf("Judging: %d, Perceiving: %d\n",users[loggedInUserIndex].judging,users[loggedInUserIndex].perceiving);
     printf("\nCareer Suggestions:\n");
-    if(c.extraversion>c.introversion)
+    if(users[loggedInUserIndex].extraversion > users[loggedInUserIndex].introversion)
     {
         printf("the most suiitable career for you would be carrer related to Education and training,Marketing,Politics and Journalism.\n");
     }
-    else if(c.extraversion<c.introversion)
+    else if(users[loggedInUserIndex].extraversion < users[loggedInUserIndex].introversion)
     {
         printf("You may excel in  more solitary research-based careers like Writer, Analyst,Skilled trader or Scientist.\n");
     }
@@ -423,11 +432,11 @@ void results(){
     {
         printf("You have a balanced preference for both social and isolated environments, so careers like Project Management, Consulting, or Entrepreneurship might suit you.\n");
     }
-    if(c.sensing>c.intuition)
+    if(users[loggedInUserIndex].sensing > users[loggedInUserIndex].intuition)
     {
         printf("You might be suited to practical careers such as Engineering, Accounting, or Healthcare.\n");
     }
-    else if(c.sensing<c.intuition)
+    else if(users[loggedInUserIndex].sensing < users[loggedInUserIndex].intuition)
     {
         printf("You may thrive in creative or theoretical fields like Design, Psychology, or Innovation.\n");
     }
@@ -435,11 +444,11 @@ void results(){
     {
         printf("You have a balanced approach to both practical and creative tasks, making you well-suited for careers in Research, Urban Planning, or Product Management.\n");
     }
-    if(c.thinking>c.feeling)
+    if(users[loggedInUserIndex].thinking > users[loggedInUserIndex].feeling)
     {
         printf("you may consider analytical careers like Law, IT, or Data Analysis.\n");
     }
-    else if(c.thinking<c.feeling)
+    else if(users[loggedInUserIndex].thinking < users[loggedInUserIndex].feeling)
     {
         printf("you are more likely to enjoy  careers which are focused on empathy, such as Counseling, HR, or Social Work.\n");
     }
@@ -447,11 +456,11 @@ void results(){
     {
         printf("You have a very strong approach to decision-making, which may make you excel in roles such as Mediator, Consultant, or Executive Leadership.\n");
     }
-    if(c.judging>c.perceiving)
+    if(users[loggedInUserIndex].judging > users[loggedInUserIndex].perceiving)
     {
         printf("You will be good at structured careers like Project Management, Business, or Law.\n");
     }
-    else if(c.judging<c.perceiving)
+    else if(users[loggedInUserIndex].judging < users[loggedInUserIndex].perceiving)
     {
         printf("You may excel in flexible careers like Entrepreneurship, Consulting, or the Arts.\n");
     }
@@ -470,14 +479,12 @@ void takeQuiz(){
         return;
     }
     printf("\n--- Quiz Time! ---\n");
-    int i;
-    for( i=0; i < 51 ; i++ ){
-        askQue(i,&c);
+    for(int i=0; i < 51 ; i++){
+        askQue(i);
     }
 	
 	results();
 	
-    //[loggedInUserIndex].quizScore = score;
     saveUsersToCSV();
 }
 
@@ -491,7 +498,7 @@ void viewUserInfo(){
     struct Portal user = users[loggedInUserIndex];
     printf("\n--- Account Information ---\n");
     printf("Username: %s\n", user.username);
-    printf("Quiz Score: %d out of %d\n", user.quizScore, QUESTIONS);
+    results();
 }
 
 // OUTPUT TO SHOW AFTER USER HAVE SUCCEESSFULLY LOGGED IN
@@ -539,12 +546,14 @@ void userMenu(){
     switch(choice){
         case 0:
             takeQuiz();
+            saveUsersToCSV();
             break;
         case 1:
             viewUserInfo();
             break;
         case 2:
             system("cls");
+            saveUsersToCSV();
             mainMenu();
             loggedInUserIndex = -1;
             break;
@@ -606,9 +615,9 @@ void mainMenu(){
 					break;
 				}
             case 2:
+                saveUsersToCSV();
             	exit(0);
         }
-    saveUsersToCSV();
     system("cls");
 }
 
@@ -628,6 +637,8 @@ int main() {
     loadUsersFromCSV();
     
     mainMenu();
+
+    saveUsersToCSV()
     
     return 0;
 }
