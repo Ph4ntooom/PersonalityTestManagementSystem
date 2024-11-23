@@ -166,6 +166,16 @@ void crypt(char *password){
     }
 }
 
+// VALIDATING USERNAME TO BE UNIQUE
+int validateUsername(char *username){
+	for(int i=0; i<userCount; i++){
+		if(strcmp(username, users[i].username)==0){
+			return 1;
+		}
+	}
+	return 0;
+}
+
 // HIDDEN PASSWORD INPUT
 void getPassword(char *password){
 	int j=0;
@@ -245,8 +255,15 @@ void registerUser(){
     }
 	
     struct Portal newUser;
+    printf("--- REGISTER ---\n");
     printf("Set Username: ");
     scanf("%s", newUser.username);
+    while(validateUsername(newUser.username)){
+		system("cls");
+    	printf("Username already exists, try again!\n");
+    	printf("Set Username: ");
+    	scanf("%s", newUser.username);
+	}
     printf("Set Password: ");
     getPassword(newUser.password);
     
@@ -273,6 +290,7 @@ int loginUser(){
     char username[STRING_LENGTH];
     char password[STRING_LENGTH];
 
+    printf("--- LOGIN ---\n");
     printf("Enter Username: ");
     scanf("%s", username);
     printf("Enter Password: ");
@@ -638,7 +656,7 @@ int main() {
     
     mainMenu();
 
-    saveUsersToCSV()
+    saveUsersToCSV();
     
     return 0;
 }
