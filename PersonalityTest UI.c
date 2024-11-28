@@ -96,9 +96,9 @@ char *questions[51]={
     "If your plans are interrupted, your top priority is to get back on track as soon as possible?"
     };
 
-//Pretty Printing Functions start
+// --= PRETTY PRINTING FUNCTION STARTS =--
 
-void hideTypeCursor() {
+void hideTypeCursor(){
     HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
 
@@ -107,13 +107,13 @@ void hideTypeCursor() {
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void simulateF11Keypress() {
+void simulateF11Keypress(){
     keybd_event(VK_F11, 0, 0, 0); // Press F11
     keybd_event(VK_F11, 0, KEYEVENTF_KEYUP, 0); // Release F11
 }
 
 
-void hideScrollBar() {
+void hideScrollBar(){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFOEX csbi;
     csbi.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
@@ -123,7 +123,7 @@ void hideScrollBar() {
     SetConsoleScreenBufferSize(hConsole, csbi.dwSize);
 }
 
-void setConsoleColor(int textColor, int backgroundColor) {
+void setConsoleColor(int textColor, int backgroundColor){
     char colorCode[3];
     sprintf(colorCode, "%X", (backgroundColor << 4) | textColor);
     char command[10];
@@ -131,7 +131,7 @@ void setConsoleColor(int textColor, int backgroundColor) {
     system(command);
 }
 
-void setConsoleFontSize(int fontSize) {
+void setConsoleFontSize(int fontSize){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_FONT_INFOEX cfi;
     cfi.cbSize = sizeof(CONSOLE_FONT_INFOEX);
@@ -164,7 +164,7 @@ void goodbye(){
 	printf("                     |      |\n");
 	printf("                     |      |\n");
 }
-// Pretty Printing Function Ends
+// --= PRETTY PRINTING FUNCTION ENDS =--
 
 
 
