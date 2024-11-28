@@ -1,7 +1,4 @@
-/*
-			THIS (NO UI) FILE IS DISCONTINUED AND LACKS THE LATEST FEATURE UPDATES
- 					YOU MAY USE THIS AS A SAMPLE
-*/
+//		Aayan Hassan
 
 #include <stdio.h>
 #include <stdlib.h>
