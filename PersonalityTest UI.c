@@ -123,14 +123,6 @@ void hideScrollBar(){
     SetConsoleScreenBufferSize(hConsole, csbi.dwSize);
 }
 
-void setConsoleColor(int textColor, int backgroundColor){
-    char colorCode[3];
-    sprintf(colorCode, "%X", (backgroundColor << 4) | textColor);
-    char command[10];
-    sprintf(command, "color %s", colorCode);
-    system(command);
-}
-
 void setConsoleFontSize(int fontSize){
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_FONT_INFOEX cfi;
@@ -944,8 +936,8 @@ int main() {
 	hideScrollBar();
 	
 	hideTypeCursor();
-	
-	setConsoleColor(0,9);
+
+	system("color 90");
 	
 	setConsoleFontSize(30);
 	
