@@ -7,9 +7,8 @@ The Secure Personality Test and Score Management System is a console-based appli
 - Save and retrieve test scores across sessions.
 - Suggest jobs to the user according to their traits.
 
-The project is available in two versions:  
-1. **With UI**: Includes a user-friendly menu and guided navigation.  
-2. **Without UI (DISCONTINUED)** : Simplified version for quick functionality testing.  
+The project includes:  
+- **UI**: Includes a user-friendly menu and arrow-key-guided navigation. 
 
 ---
 
@@ -41,28 +40,18 @@ To run this program, ensure you have:
 ### How to Run  
 1. Clone this repository to your local machine:  
    ```bash
-   git clone https://github.com/yourusername/SecurePersonalityTest.git
+   git clone https://github.com/yourusername/PersonalityTestManagementSystem.git
    cd SecurePersonalityTest
    ```
 2. Compile the program:
 
-   For the version **with UI**:
      ```bash
      gcc -o PersonalityTest_UI "PersonalityTest UI.c" -lm
      ```
-    For the version **without UI (DISCONTINUED)**:
-     ```bash
-     gcc -o PersonalityTest PersonalityTest.c -lm
-     ```
-4. Run the program:
+3. Run the program:
 
-   For the version **with UI**:
      ```bash
      ./PersonalityTest_UI
-     ```
-    For the version **without UI (DISCONTINUED)**:
-     ```bash
-     ./PersonalityTest
      ```
 
 ---
@@ -77,7 +66,6 @@ To run this program, ensure you have:
 
 ### File Structure  
 - **`PersonalityTest UI.c`** - The program with a menu-based user interface.
-- **`PersonalityTest.c`** - A streamlined version without a user interface. **(DISCONTINUED)**
 - **`users.csv`** - File to securely store user data and scores.
 
 ---
